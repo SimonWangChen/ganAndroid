@@ -3,10 +3,14 @@ package com.proclassmates.ganandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.LruCache;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,14 +18,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
     private ImageView iv;
+    private TextView tokenTV;
 
     private NetworkImageView networkImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +47,48 @@ public class MainActivity extends AppCompatActivity {
         // todo: 4. NetworkImageView
         networkImageView = findViewById(R.id.imageView2);
 
+        // todo: 5.post method
+        tokenTV = findViewById(R.id.token);
+
         inflateImage();
 
         inflateNetworkImage();
+
+        inflateTokenTV();
+    }
+
+    private void inflateTokenTV() {
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("username", "simon");
+        map.put("password", "simon123");
+        // todo: 一定要在后面加上"/" 不然会有 500 error
+        String uri = "http://apidev.proclassmates.com:8999/login/";
+        String params = appendParameter(
+                uri,map);
+        MyJsonObjectRequest jsonObjectRequest = new MyJsonObjectRequest(
+                uri, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                if (response != null) {
+                    tokenTV.setText(response.toString());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        MyVolleyHelper.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+    ///拼接下参数，转成string
+    private String appendParameter(String url,Map<String,String> params){
+        Uri uri = Uri.parse(url);
+        Uri.Builder builder = uri.buildUpon();
+        for(Map.Entry<String,String> entry:params.entrySet()){
+            builder.appendQueryParameter(entry.getKey(),entry.getValue());
+        }
+        return builder.build().getQuery();
     }
 
     private void inflateNetworkImage() {
@@ -93,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         imageLoader.get(imgUrl, imageListener);
     }
 
-    public void getJsonVolley(){
+    public void getJsonVolley() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         String JSONUrl = "http://apidev.proclassmates.com";
