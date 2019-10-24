@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
+    // todo: what's the meaning of saveInstanceState???
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
