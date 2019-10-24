@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GanAndroid</string>
+    <string name="action_reset">Reset</string>
 </resources>
