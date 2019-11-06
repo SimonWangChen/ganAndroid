@@ -5,11 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private CircleMenuLayout mCircleMenuLayout;
+
+    private ListView mListView;
+
+    List<MenuItem> mMenuItems = new ArrayList<MenuItem>();
+
+
 
     //菜单标题
     private String[] mItemTexts = new String[]{

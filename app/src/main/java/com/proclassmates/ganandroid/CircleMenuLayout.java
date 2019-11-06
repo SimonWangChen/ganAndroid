@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 /**
@@ -17,6 +18,8 @@ import android.widget.TextView;
  */
 public class CircleMenuLayout extends ViewGroup {
 
+    //设置 adapter
+    ListAdapter mAdapter;
     // 圆形直径
     private int mRadius;
     // 该容器内 child item 的 默认尺寸
@@ -44,6 +47,14 @@ public class CircleMenuLayout extends ViewGroup {
     // MenuItem 的点击事件接口
     private AdapterView.OnItemClickListener mOnMenuItemClickListener;
 
+
+    /**
+     *
+     * @param mAdapter
+     */
+    public void setAdapter(ListAdapter mAdapter){
+        this.mAdapter = mAdapter;
+    }
 
     /**
      * @param context
@@ -74,17 +85,48 @@ public class CircleMenuLayout extends ViewGroup {
         buildMenuItems();
     }
 
-    //构建菜单项
-    private void buildMenuItems() {
-        // 根据用户设置的参数， 初始化 menu item
-        for (int i = 0; i < mMenuItemCount; i++) {
-            View itemView = inflateMenuItem(i);
+    //未使用 adapter 构建菜单项
+//    private void buildMenuItems() {
+//        // 根据用户设置的参数， 初始化 menu item
+//        for (int i = 0; i < mMenuItemCount; i++) {
+//            View itemView = inflateMenuItem(i);
+//
+//            //初始化菜单项
+//            initMenuItem(itemView, i);
+//            //添加 view 到容器中
+//            addView(itemView);
+//        }
+//    }
 
-            //初始化菜单项
-            initMenuItem(itemView, i);
-            //添加 view 到容器中
+    /**
+     * 使用 adapter 构建菜单项；
+     */
+    private void buildMenuItems(){
+        for (int i=0; i < mAdapter.getCount(); i++){
+            final View itemView = mAdapter.getView(i, null, this);
+            final int position = i;
+            itemView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mOnMenuItemClickListener != null){
+                        mOnMenuItemClickListener.onClick(itemView, position);
+                    }
+                }
+            });
+
             addView(itemView);
         }
+    }
+
+    /**
+     * 在此调用 buildMenuItems
+     */
+    @Override
+    protected void onAttachedToWindow() {
+        if(mAdapter != null){
+            buildMenuItems();
+        }
+        super.onAttachedToWindow();
     }
 
     private View inflateMenuItem(final int i) {
