@@ -1,2 +1,3 @@
+// 指明需要编译的项目
 include ':app'
 rootProject.name='GanAndroid'
