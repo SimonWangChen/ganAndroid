@@ -12,8 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <!--        <activity android:name=".MainActivity"></activity>-->
-        <activity android:name=".Main2Activity">
+        <!--OPPO-->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.2" />
+
+        <!--小米适配-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape"/>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

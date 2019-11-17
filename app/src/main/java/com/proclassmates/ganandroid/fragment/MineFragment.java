@@ -16,13 +16,12 @@ import com.proclassmates.ganandroid.R;
  * @desc:
  * @class name:com.proclassmates.ganandroid.fragment
  * @author: simon
- * @time： 2019-11-17 14:59
+ * @time： 2019-11-17 19:40
  */
-public class ContentFragment extends Fragment {
-
+public class MineFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_content, null);
+        return inflater.inflate(R.layout.fragment_me, null);
     }
 }

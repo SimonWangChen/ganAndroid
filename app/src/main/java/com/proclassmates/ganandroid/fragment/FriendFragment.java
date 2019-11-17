@@ -14,21 +14,14 @@ import com.proclassmates.ganandroid.R;
 /**
  * @name: GanAndroid
  * @desc:
- * @class name:com.proclassmates.ganandroid
+ * @class name:com.proclassmates.ganandroid.fragment
  * @author: simon
- * @time： 2019-11-17 14:48
+ * @time： 2019-11-17 19:40
  */
-public class TitleFragment extends Fragment {
-    /**
-     * @param inflater           将 xml 转换成 view 对象
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
+public class FriendFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_title, null);
-        return view;
+        return inflater.inflate(R.layout.fragment_friend, null);
     }
 }
