@@ -39,16 +39,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DialogManager.getInstance().hide(mPhotoDialog);
-//                FileHelper.getInstance().toCamera(MainActivity.this);
-                Toast.makeText(MainActivity.this, "camera", Toast.LENGTH_SHORT).show();
+                FileHelper.getInstance().toCamera(MainActivity.this);
             }
         });
         tv_ablum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogManager.getInstance().hide(mPhotoDialog);
-//                FileHelper.getInstance().toAlbum(MainActivity.this);
-                Toast.makeText(MainActivity.this, "ablum", Toast.LENGTH_SHORT).show();
+                FileHelper.getInstance().toAlbum(MainActivity.this);
             }
         });
     }
