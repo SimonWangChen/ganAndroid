@@ -195,7 +195,7 @@ public class FileHelper {
         Log.d("FileHelper", ("startPhotoZoom" + file.getPath()));
         Uri uri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(mActivity, "com.imooc.meet.fileprovider", file);
+            uri = FileProvider.getUriForFile(mActivity, "com.proclassmates.ganandroid.fileprovider", file);
         } else {
             uri = Uri.fromFile(file);
         }
